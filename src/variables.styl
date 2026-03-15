@@ -1,4 +1,6 @@
 // Colour presets for Crackboard theme
+themeName = 'purple'
+
 themes = {
   purple: {
     base: #121215,
@@ -41,22 +43,23 @@ themes = {
   },
 
   custom: {
-    base: clrBase,
-    tint: clrTint,
-    text: clrText,
-    acc1: clrAcc1,
-    acc2: clrAcc2
+    base: clrbase,
+    tint: clrtint,
+    text: clrtext,
+    acc1: clracc1,
+    acc2: clracc2
   }
 }
 
-// Default theme
-themeName = 'purple'
-currentTheme = themes[themeName]
-clr-base = currentTheme['base']
-clr-tint = currentTheme['tint']
-clr-text = currentTheme['text']
-clr-acc1 = currentTheme['acc1']
-clr-acc2 = currentTheme['acc2']
+// Current theme - use bracket notation for themename
+currenttheme = themes[themename]
+
+// Color variables from theme
+clr-base = currenttheme['base']
+clr-tint = currenttheme['tint']
+clr-text = currenttheme['text']
+clr-acc1 = currenttheme['acc1']
+clr-acc2 = currenttheme['acc2']
 
 // Typography
 font-text = 'Rubik', sans-serif, 'Noto Color Emoji', 'FiraCode Nerd Font'

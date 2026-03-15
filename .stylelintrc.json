@@ -26,6 +26,12 @@
       }
     },
     {
+      "files": ["src/variables.styl"],
+      "rules": {
+        "no-invalid-position-declaration": null
+      }
+    },
+    {
       "files": [
         "*.html",
         "**/*.html",
