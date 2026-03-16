@@ -199,3 +199,261 @@
     color-scheme: dark;
   }
 }
+
+// Relative Color Syntax (CSS Color Level 5) for programmatic color variations
+@css {
+  /* Relative color syntax - lighter variants using oklch */
+  :root {
+    --clr-base-lighter: oklch(from var(--clr-base) 98% c h);
+    --clr-base-light: oklch(from var(--clr-base) 95% c h);
+    --clr-base-dark: oklch(from var(--clr-base) 90% c h);
+    --clr-base-darker: oklch(from var(--clr-base) 80% c h);
+    --clr-text-light: oklch(from var(--clr-text) 95% c h);
+    --clr-text-lighter: oklch(from var(--clr-text) 110% c h);
+    --clr-tint-darker: oklch(from var(--clr-tint) 70% c h);
+    --clr-tint-dark: oklch(from var(--clr-tint) 85% c h);
+    --clr-acc1-light: oklch(from var(--clr-acc1) 90% c h);
+    --clr-acc1-lighter: oklch(from var(--clr-acc1) 80% c h);
+    --clr-acc1-dark: oklch(from var(--clr-acc1) l c h);
+    --clr-acc2-light: oklch(from var(--clr-acc2) 90% c h);
+    --clr-acc2-lighter: oklch(from var(--clr-acc2) 80% c h);
+    --clr-acc2-dark: oklch(from var(--clr-acc2) l c h);
+  }
+
+  /* color-mix() for blending colors */
+  :root {
+    --mix-base-tint-90: color-mix(in srgb, var(--clr-base), var(--clr-tint) 10%);
+    --mix-base-tint-85: color-mix(in srgb, var(--clr-base), var(--clr-tint) 15%);
+    --mix-base-tint-80: color-mix(in srgb, var(--clr-base), var(--clr-tint) 20%);
+    --mix-base-tint-70: color-mix(in srgb, var(--clr-base), var(--clr-tint) 30%);
+    --mix-text-white-90: color-mix(in srgb, var(--clr-text), white 10%);
+    --mix-text-white-80: color-mix(in srgb, var(--clr-text), white 20%);
+    --mix-text-black-90: color-mix(in srgb, var(--clr-text), black 10%);
+    --mix-acc1-white-80: color-mix(in srgb, var(--clr-acc1), white 20%);
+    --mix-acc1-white-90: color-mix(in srgb, var(--clr-acc1), white 10%);
+    --mix-acc2-white-80: color-mix(in srgb, var(--clr-acc2), white 20%);
+    --mix-acc2-white-90: color-mix(in srgb, var(--clr-acc2), white 10%);
+  }
+
+  /* Alpha variants using color-mix */
+  :root {
+    --alpha-text-10: color-mix(in srgb, var(--clr-text), transparent 90%);
+    --alpha-text-20: color-mix(in srgb, var(--clr-text), transparent 80%);
+    --alpha-text-30: color-mix(in srgb, var(--clr-text), transparent 70%);
+    --alpha-base-10: color-mix(in srgb, var(--clr-base), transparent 90%);
+    --alpha-base-15: color-mix(in srgb, var(--clr-base), transparent 85%);
+  }
+
+  /* Accent color variations using color-mix */
+  :root {
+    --accent-success: color-mix(in srgb, var(--clr-acc1), #79ffab 30%);
+    --accent-warning: color-mix(in srgb, var(--clr-acc2), #ffb57d 30%);
+    --accent-info: color-mix(in srgb, var(--clr-tint), #88c0d0 30%);
+    --accent-error: color-mix(in srgb, var(--clr-acc1), #f93a37 40%);
+  }
+}
+
+// View Transitions API for smooth page/state transitions
+@css {
+  /* Enable view transitions globally */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+  }
+
+  ::view-transition-old(root) {
+    animation-name: fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in;
+  }
+
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Channel list transitions */
+  ::view-transition-old(channel-list),
+  ::view-transition-new(channel-list) {
+    animation-duration: 0.25s;
+  }
+
+  /* Message transitions - slide up for new messages */
+  ::view-transition-new(message) {
+    animation-name: message-appear;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+  }
+
+  @keyframes message-appear {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Sidebar/server list transitions */
+  ::view-transition-old(sidebar),
+  ::view-transition-new(sidebar) {
+    animation-duration: 0.2s;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-old(channel-list),
+    ::view-transition-new(channel-list),
+    ::view-transition-new(message) {
+      animation: none;
+    }
+  }
+}
+
+// CSS Nesting Migration Path
+@css {
+  /*
+   * CSS Nesting Migration Guide:
+   *
+   * Stylus:                    Native CSS:
+   * .parent {                 .parent {
+   *   .child {                  & .child {
+   *     color: red                color: red;
+   *   }                        }
+   * }                        }
+   *
+   * The & symbol references the parent selector.
+   */
+
+  /* Example: Nested selectors using native CSS nesting */
+
+  /* Server sidebar */
+  .servers {
+    & .server-icon {
+      border-radius: 50%;
+
+      &:hover {
+        border-radius: 30%;
+      }
+
+      &.active {
+        border-radius: 30%;
+        background: var(--accent-primary);
+      }
+    }
+  }
+
+  /* Channels */
+  .channels {
+    & .channel {
+      & .channel-name {
+        color: var(--text-secondary);
+
+        &:hover {
+          color: var(--text-primary);
+        }
+      }
+
+      &.active .channel-name {
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  /* Messages */
+  .message {
+    & .message-content {
+      color: var(--text-primary);
+
+      & .mention {
+        color: var(--accent-primary);
+        background: rgba(162, 89, 255, 0.15);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+      }
+    }
+
+    &:hover {
+      background: var(--main-surface-secondary);
+    }
+  }
+
+  /* Nested media queries */
+  .container {
+    @media (max-width: 768px) {
+      & {
+        padding: 0.5rem;
+      }
+
+      & .channels {
+        display: none;
+      }
+    }
+  }
+
+  /* Nested @supports */
+  .message-input {
+    @supports (backdrop-filter: blur(10px)) {
+      & {
+        backdrop-filter: blur(10px);
+      }
+    }
+  }
+
+  /* Layer integration with nesting */
+  @layer components {
+    .modal {
+      background: var(--main-surface-primary);
+      border-radius: 8px;
+      padding: 1rem;
+
+      & .modal-header {
+        font-weight: 600;
+      }
+
+      & .modal-body {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  /* Modern :is() and :where() with nesting */
+  & :is(.btn, button) {
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Note: Native CSS nesting is supported in:
+// - Chrome 112+ (2023)
+// - Firefox 110+ (2023)
+// - Safari 16.4+ (2023)
+// - Edge 112+ (2023)
