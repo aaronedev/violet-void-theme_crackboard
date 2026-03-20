@@ -30,9 +30,27 @@
 
 ## 🔮 Future
 
-- [ ] **Relative color syntax**
-- [ ] **View Transitions API**
-- [ ] **CSS nesting migration path**
+- [x] **Relative color syntax** ✅ 2026-03-16
+  - Added oklch-based color variants using `from` keyword
+  - Added color-mix() variants for blending colors
+  - Added alpha variants using color-mix
+  - Added accent color variations (success, warning, info, error)
+  - Commit: 130151f
+
+- [x] **View Transitions API** ✅ 2026-03-16
+  - Added ::view-transition-old/new(root) for smooth transitions
+  - Added fade-in/fade-out keyframe animations
+  - Added channel list and message transitions
+  - Respects prefers-reduced-motion
+  - Commit: 130151f
+
+- [x] **CSS nesting migration path** ✅ 2026-03-16
+  - Added native CSS nesting examples with & reference
+  - Included nested media queries and @supports patterns
+  - Added complex nesting for servers, channels, messages
+  - Integrated @layer with nesting for components
+  - Added :is() and :where() with nesting examples
+  - Commit: 130151f
 
 ---
 
